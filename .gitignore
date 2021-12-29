@@ -3,6 +3,21 @@ node_modules
 /dist
 
 
+admin/wp-content/themes/twenty*
+admin/wp-content/upgrade
+admin/wp-content/uploads
+admin/wp-admin
+admin/wp-includes
+admin/wp-settings.*
+admin/wp-*.php
+admin/sitemap.*
+admin/wp-config.php
+admin*.sql
+admin/.htaccess
+admin/index.php
+admin/xmlrpc.php
+
+
 # local env files
 .env.local
 .env.*.local
