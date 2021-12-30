@@ -75,7 +75,6 @@ export default {
 
   computed:{
      books(){
-      console.log(this.$store.getters.products[0]);
       return this.$store.getters.products;
     }
   },

@@ -1,4 +1,3 @@
-
 <template>
   <v-app>
     <v-main>
@@ -9,29 +8,11 @@
 
 <script>
 
-
-
 export default {
   name: 'App',
 
   data() {
     return {
-      isLoading: false,
-      fullPage: true
-    }
-  },
-
-  created() {
-   this.loading = true;
-  },
-
-  mounted() {
-    this.loading = false;
-  },
-
-  methods: {
-    onCancel() {
-      this.loading = false;
     }
   }
 }

@@ -1,4 +1,8 @@
 export default {
+  users(state) {
+    return state.users;
+  },
+
   products(state) {
     return state.products;
   },

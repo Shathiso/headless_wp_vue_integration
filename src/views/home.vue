@@ -1,6 +1,6 @@
 <template>
   <div class="tw-bg-gradient-to-r tw-from-gray-400 tw-via-gray-300 tw-to-gray-300  tw-min-h-screen tw-relative" id="home-wrapper">
-    <div class="tw-w-full tw-min-h-screen tw-z-20 tw-absolute" style="background-color:#eeeffe" id="overlay-start">
+    <div class="tw-w-full tw-min-h-screen tw-z-20 tw-absolute" style="background-color:rgb(237 242 245)" id="overlay-start">
       <Navbar @showCart="showCart" class="tw-fixed tw-z-20 tw-top-0" />
 
       <div class="tw-h-60 tw-mt-16 tw-px-12 tw-flex " id="image-container" >
@@ -42,8 +42,11 @@
       }
     },
 
+
     async mounted() {
       await this.$store.dispatch('fetchProducts');
+      await this.$store.dispatch('fetchUsers');
+      console.log(this.$store.getters.users);
     }
   }
 </script>

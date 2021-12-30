@@ -1,5 +1,9 @@
 export default {
 
+  SET_USERS(state, payload) {
+    state.users.push(payload.users)
+  },
+
   SET_PRODUCTS(state, payload) {
     state.products = payload.products
   },
@@ -31,5 +35,13 @@ export default {
     }
     
     state.selectedProducts = state.selectedProducts.filter(m => m.id !== payload.book.id);
+  },
+
+  REMOVE_ITEM_FROM_CART(state, payload) {
+    if(payload.book['quantity'] > 1) {
+      state.selectedProductsTotal -=  parseInt(payload.book.prices.regular_price);
+      state.selectedProductsCount--;
+      payload.book['quantity']--;
+    }
   }
 }
