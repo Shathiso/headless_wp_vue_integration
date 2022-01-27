@@ -10,15 +10,25 @@ Vue.use(Vuex)
 const LocalStorageKey = '__headless_db__';
 
 
-/*const vuexLocal = new VuexPersistence({
+const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
 
   key: LocalStorageKey,
 
-  reducer: (state) => ({
-    //products: state.products
-  })
-});*/
+ /* reducer: (state) => ({
+    users: state.users,
+    loggedIn: state.user.loggedIn,
+    token:  state.user.token,
+    name:  state.user.name,
+    email:  state.user.email,
+    username:  state.user.username,
+    loading: state.loading,
+    products:state.products,
+    selectedProductsCount: state.selectedProductsCount,
+    selectedProducts: state.selectedProducts,
+    selectedProductsTotal: state.selectedProductsTotal,
+  })*/
+});
 
 const store = new Vuex.Store({
 
@@ -28,10 +38,9 @@ const store = new Vuex.Store({
   mutations: Mutations,
   getters: Getters,
   actions: Actions,
- // plugins: [vuexLocal.plugin]
+  //plugins: [vuexLocal.plugin]
 
 });
-
 
 export default store;
 

@@ -1,14 +1,10 @@
 <template>
-  <div class="tw-flex tw-flex-row tw-flex-wrap tw-items-center tw-w-full tw-lg:flex-row tw-min-h-screen tw-mix-blend-multiply" id="register-wrapper">
-    <div class="tw-w-full md:tw-h-6/6 lg:tw-w-3/6 tw-relative  tw-z-10 lg:tw-pl-20 sm:tw-pl-0.5">
-      <h1 class=" tw-font-semibold tw-text-6xl tw-text-white tw-block tw-w-full tw-h-auto tw-text-shadow-md">Register</h1>
-      <!--<span class="tw-text-white tw-font-light tw-text-3xl">and</span>-->
-      <p class="tw-font-light tw-text-4xl tw-block tw-w-full tw-h-auto tw-text-shadow-md tw-ml-5 xs:tw-ml-0 tw-mt-2" style="color:#00b0a3"><span class="tw-font-medium">Start</span> your fitness journey..</p>
-    </div>
-    <div class="tw-w-full md:tw-w-5/12 md:tw-mr-auto  tw-shadow-xl tw-relative tw-z-10">
+  <div>
+      <h1 class="tw-w-full tw-text-3xl tw-text-center">Register</h1>
+    <div class="tw-shadow-lg tw-w-4/5 tw-mx-auto tw-rounded tw-px-8 tw-pt-6 tw-pb-8 tw-mb-4">
       <v-card flat class="tw-p-5">
         <v-snackbar
-          v-model="snackbar"
+          v-if="snackbar"
           absolute
           top
           right
@@ -31,8 +27,8 @@
               >
                 <v-text-field
                   v-model="form.firstname"
-                  :rules="rules.firstname"
-                  color="orange"
+                  :rules="rules.nameRules"
+                  color="primary"
                   label="First name"
                   required
                 ></v-text-field>
@@ -43,8 +39,8 @@
               >
                 <v-text-field
                   v-model="form.lastname"
-                  :rules="rules.lastname"
-                  color="orange"
+                  :rules="rules.nameRules"
+                  color="primary"
                   label="Last name"
                   required
                 ></v-text-field>
@@ -55,72 +51,45 @@
               >
                 <v-text-field
                   v-model="form.email"
-                  :rules="rules.email"
-                  color="orange"
+                  :rules="rules.emailRules"
+                  color="primary"
                   label="Email"
                   required
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
-                <!--<label>Age</label>
-                <v-slider
-                  v-model="form.age"
-                  :rules="rules.age"
-                  color="orange"
-                  hint="Be honest"
-                  min="1"
-                  max="100"
-                  thumb-label
-                ></v-slider>-->
                  <v-text-field
                   v-model="form.password"
-                  :rules="rules.password"
-                  color="orange"
+                  :rules="rules.nameRules"
+                  color="primary"
                   type="password"
-                  label="password"
+                  label="Password"
                   required
                 ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-checkbox
-                  v-model="terms"
-                  color="green"
-                >
-                  <template v-slot:label>
-                    <div  class="tw-text-black">
-                      Do you accept the
-                      <a
-                        href="#"
-                        @click.prevent="terms = false"
-                      >terms</a>
-                      and
-                      <a
-                        href="#"
-                        @click.prevent="conditions = false"
-                      >conditions?</a>
-                    </div>
-                  </template>
-                </v-checkbox>
               </v-col>
             </v-row>
           </v-container>
           <v-card-actions>
             <v-btn
-              text
+              color="red"
+              class="tw-text-white"
               @click="resetForm"
             >
-              Cancel
+              Reset
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn
-              :disabled="!formIsFilled"
-              text
-              type="submit"
-              color="primary"
-              class="tw-bg-yellow-600 tw-text-white"
-              :class="{'tw-animate-pulse' : formIsFilled }"
-            >
-              Register
+            <v-btn color="rgb(44, 112, 131)" 
+              class=" tw-hover:bg-blue-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded tw-focus:outline-none tw-focus:shadow-outline" 
+              @click="loading = true"
+              :disabled="!formIsFilled && !loading"
+              type="submit">
+              <span v-if="!loading">Register </span>  
+              <v-progress-circular
+               indeterminate
+               color="white"
+               width="3"
+               v-if="loading"
+              ></v-progress-circular>
             </v-btn>
           </v-card-actions>
         </v-form>
@@ -132,15 +101,28 @@
 <script>
   export default {
     data () {
-      const defaultForm = Object.freeze({
-        firstname: '',
-        lastname: '',
-        email: '',
-        password: '',
-      })
-
       return {
+        form :{
+          firstname: '',
+          lastname: '',
+          email: '',
+          password: '',
+        },
 
+        snackbar: false,
+        loading: false,
+
+        rules: {
+          nameRules: [
+            v => !!v || 'This field is required',
+           // v => v.length > 3 || 'Name must be more than 3 characters',
+          ],
+  
+          emailRules: [
+            v => !!v || 'E-mail is required',
+            v => /.+@.+/.test(v) || 'E-mail must be valid',
+          ],
+        }
       }
     },
 
@@ -157,18 +139,16 @@
 
     methods: {
       resetForm () {
-        this.form = Object.assign({}, this.defaultForm)
         this.$refs.form.reset()
       },
       submit () {
 
-        this.$store.dispatch('registerUser', {
-          email: this.form.email,
-          password: this.form.password
-        })
-        this.snackbar = true
-        this.resetForm()
-  
+        this.$store.dispatch('loginAdmin', {
+          form: this.form
+        });
+        this.snackbar = true;
+        this.resetForm();
+
       },
     },
 }

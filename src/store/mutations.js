@@ -1,7 +1,26 @@
+import router from '../router'
+
 export default {
 
   SET_USERS(state, payload) {
     state.users.push(payload.users)
+  },
+
+  SET_USER_DATA(state, payload) {
+    state.user.token = payload.data.token;
+    state.user.email = payload.data.user_email;
+    state.user.name = payload.data.user_nicename;
+    state.user.username = payload.username;
+
+    state.user.loggedIn = true;
+  },
+
+  SET_ADMIN_DATA(state, payload) {
+    state.admin.token = payload.data.token;
+  },
+
+  SET_CHECKING_OUT(state){
+    state.checkingOut = true;
   },
 
   SET_PRODUCTS(state, payload) {
@@ -43,5 +62,30 @@ export default {
       state.selectedProductsCount--;
       payload.book['quantity']--;
     }
+  },
+
+
+  SET_REGISTER_DATA(state, payload) {
+    state.registeringUserDetails.firstname = payload.form.firstname,
+    state.registeringUserDetails.email = payload.form.email,
+    state.registeringUserDetails.username = payload.form.username,
+    state.registeringUserDetails.password = payload.form.password
+  },
+
+  CLEAR_REGISTER_DATA(state) {
+    state.registeringUserDetails.firstname = "",
+    state.registeringUserDetails.email = "",
+    state.registeringUserDetails.username = "",
+    state.registeringUserDetails.password = ""
+  },
+
+  LOGOUT(state) {
+    state.user.loggedIn = false,
+    state.user.token = '',
+    state.user.name = '',
+    state.user.email = '',
+    state.user.username = ''
+    router.push('/');
   }
+
 }

@@ -4,18 +4,19 @@
       v-model="show"
       persistent
       max-width="600px">
-      <v-card>
+      <v-card class="tw-relative">
         <perfect-scrollbar class="tw-relative">
           <v-card-title class=" tw-flex  tw-z-10 tw-bg-white tw-w-full tw-px-0 tw-pt-0">
             <div class="tw-flex tw-justify-between tw-w-full tw-px-4 tw-py-3 " style="background-color:#2c7083">
               <span class="tw-text-white ">Shopping Cart</span>
-          
+              <v-btn color="primary">
               <v-icon
                 @click="deactivate"
                 color="white"
               > 
               mdi-close
               </v-icon>
+              </v-btn>
             </div>
             <div class="tw-mt-3 tw-w-full tw-px-4 tw-text-xl tw-text-left price">
               Total Amount : R {{ selectedProductsTotal }}, 00
@@ -82,6 +83,18 @@
             </v-card-text>
   
         </perfect-scrollbar>
+        <div class=" tw-mb-2">
+          <v-btn rounded color="rgb(44, 112, 131)" 
+            dark class="tw-w-xs"
+            :disabled=" selectedProductsCount == 0"
+            @click="checkout"
+             >
+            <v-icon>
+              mdi-list
+            </v-icon>
+            Checkout
+          </v-btn> 
+        </div>
       </v-card>
     </v-dialog>
   </v-row>
@@ -111,6 +124,10 @@ export default {
 
    selectedProductsTotal() {
      return this.$store.getters.selectedProductsTotal;
+   },
+
+   loggedIn() {
+     return this.$store.getters.loggedIn;
    }
  },
 
@@ -151,6 +168,17 @@ export default {
        this.$store.dispatch('removeItemFromCart', {
        book: book
       })
+    },
+
+    checkout(){
+      this.show = false;
+      this.$store.dispatch('checkingOut');
+      if(!this.loggedIn){
+        this.$router.push('/login');
+      } else{
+         this.$router.push('/checkout');
+      }
+
     }
  }
 
@@ -166,14 +194,12 @@ export default {
 
   .price{
     font-family: 'Cabin', sans-serif !important;
-    letter-spacing: 0.2px !important;
     color: #2c7083;
     font-size: 17px;
   }
 
   .text-emphasis{
     font-family: 'Cabin', sans-serif !important;
-    letter-spacing: 0.2px !important;
     font-size: 16px;
   }
 

@@ -19,7 +19,7 @@
       <span class="title">{{ book.name }}</span> 
     </v-card-title>
 
-    <v-card-text class="tw-p-0 tw-text-left tw-text-lg price">{{ book.prices.currency_symbol }} {{ book.prices.regular_price }}</v-card-text>
+    <v-card-text class="tw-p-0 tw-text-left tw-text-lg price">{{ book.prices.currency_symbol }} {{ book.prices.regular_price }},00</v-card-text>
 
     <v-card-text class="tw-pl-0 ">
       <v-row
@@ -112,7 +112,6 @@ export default {
 
 .price{
   font-family: 'Cabin', sans-serif !important;
-  letter-spacing: 0.2px !important;
   font-weight: bold !important;
 }
 </style>

@@ -8,7 +8,8 @@
  import VueResource from 'vue-resource'
  import '@/assets/css/tailwind.css'
  import PerfectScrollbar from 'vue2-perfect-scrollbar'
-import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
+ import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
+
 
 Vue.use(PerfectScrollbar)
 
